@@ -1,0 +1,24 @@
+services:
+  db:
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_DB=${NAME}
+      - POSTGRES_USER=${USER}
+      - POSTGRES_PASSWORD=${PASSWORD}
+
+  web:
+    build: .
+#    command: python manage.py runserver 0.0.0.0:8000 --settings=pose.settings.dev
+    ports:
+      - 8000:8000
+    env_file:
+      - .env
+    depends_on:
+      - db
