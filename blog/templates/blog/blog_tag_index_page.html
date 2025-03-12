@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+
+{% block content %}
+
+  <div class="border-b-2 bg-bottom">
+    <div class="bg-linear-to-r from-50% from-indigo-950/95 to-indigo-950/60 w-full backdrop-saturate-0">
+      <div class="container max-w-screen-xl mx-auto px-8 py-16 ">
+
+        <div class="xl:w-9/12">
+          <h1 class="text-5xl font-black italic leading-[1.15] text-zinc-100">{{ page.title }}</h1>
+          <p class="text-xl w-2/3  mt-4 font-medium text-zinc-200 pr-20">Showing posts tagged 
+            <span class="font-mono font-semibold">{{ request.GET.tag }}</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <div class="p-8 container max-w-screen-xl mx-auto">
+
+    {% for blogpage in blogpages %}
+
+      <p>
+        <strong><a href="{% pageurl blogpage %}">{{ blogpage.title }}</a></strong><br/>
+        <small>Revised: {{ blogpage.latest_revision_created_at }}</small><br/>
+      </p>
+
+      <div>
+        {{ blogpage.intro | richtext }}
+      </div>
+
+      {% empty %}
+      No pages found with that tag.
+    {% endfor %}
+  </div>
+{% endblock %}

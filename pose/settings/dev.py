@@ -15,6 +15,12 @@ ALLOWED_HOSTS = ["*"]
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
+# dev apps
+if os.environ.get("ENVIRONMENT") != "production":
+    INSTALLED_APPS += [
+        'django_browser_reload',
+    ]
+
 
 try:
     from .local import *

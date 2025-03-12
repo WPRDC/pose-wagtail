@@ -1,0 +1,9 @@
+{% for nav_item in items %}
+  <li class="cursor-pointer underline decoration-zinc-700  text-zinc-700 hover:text-black ">
+    <a class="decoration-2 font-semibold underline-offset-2 text-lg" href="  {% if nav_item.url %}
+    {{ nav_item.url }}
+  {% else %}
+    {{ nav_item.page.url }}
+  {% endif %}">{{ nav_item.label }}</a>
+  </li>
+{% endfor %}

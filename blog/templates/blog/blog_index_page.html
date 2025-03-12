@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %}
+
+{% block body_class %}template-blogindexpage{% endblock %}
+
+{% block content %}
+  <div class="border-b-2 bg-bottom">
+    <div class="bg-linear-to-r from-50% from-indigo-950/95 to-indigo-950/60 w-full backdrop-saturate-0">
+      <div class="container max-w-screen-xl mx-auto px-8 py-16 ">
+        <div class="xl:w-9/12">
+          <h1 class="text-5xl font-black leading-[1.15] text-zinc-100">{{ page.title }}</h1>
+          <p class="text-xl w-2/3  mt-4 font-medium text-zinc-200 pr-20">{{ page.subtitle }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="p-8 container max-w-screen-xl mx-auto">
+    {# Introduction #}
+    <div class="max-md:prose prose-lg mb-8">{{ page.intro|richtext }}</div>
+
+    {# Listing #}
+    <ul class="flex flex-col gap-6">
+      {% for post in blogpages %}
+        {% with post=post.specific %}
+
+          {# Teaser #}
+          <li class="border-t border-zinc-400 pt-6">
+            <article>
+            <header class="pb-4">
+              <h1 class="text-3xl font-semibold pb-1 hover:underline"><a href="{% pageurl post %}">{{ post.title }}</a></h1>
+              <time class="text" datetime="{{ post.date|date:"Y-m-d"  }}">{{ post.date }}</time>
+            </header>
+
+              {% if post.tagline %}
+                <p class="text-lg font-semibold">{{ post.tagline }}</p>
+              {% endif %}
+              <div class="max-md:prose prose-lg">{{ post.intro|richtext }}</div>
+            </article>
+          </li>
+
+        {% endwith %}
+      {% endfor %}
+    </ul>
+
+  </div>
+
+{% endblock %}

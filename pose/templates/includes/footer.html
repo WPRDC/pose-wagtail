@@ -1,0 +1,56 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+{% load navigation_tags %}
+
+<footer class="bg-gray-800 text-zinc-200 text-sm p-8">
+  <div class="flex w-full">
+    {% with footer_settings=settings.base.GlobalSettings %}
+
+      <div class="flex w-full text-zinc-300">
+        <div>
+          <div class="mb-4">
+            {% get_footer_text %}
+          </div>
+          <ul class="flex flex-col gap-4">
+            {% if footer_settings.pitt_url and footer_settings.pitt_logo %}
+              <li>
+                <a target="_blank" href="{{ footer_settings.pitt_url }}">
+                  {% image footer_settings.pitt_logo height-65 %}
+                </a>
+              </li>
+            {% endif %}
+            {% if footer_settings.dathere_url and footer_settings.dathere_logo %}
+              <li>
+                <a target="_blank" href="{{ footer_settings.dathere_url }}">
+                  {% image footer_settings.dathere_logo height-60 %}
+                </a>
+              </li>
+            {% endif %}
+
+            {% if footer_settings.wprdc_url and footer_settings.wprdc_logo %}
+              <li>
+                <a target="_blank" href="{{ footer_settings.wprdc_url }}">
+                  {% image footer_settings.wprdc_logo height-40 %}
+                </a>
+              </li>
+            {% endif %}
+          </ul>
+        </div>
+
+      </div>
+      <div class="">
+        {{ footer_settings.funding_text|richtext }}
+        <p class="mt-4">
+          <a target="_blank" href="{{ footer_settings.nsf_url }}">
+            {% image footer_settings.nsf_logo height-100 %}
+          </a>
+        </p>
+      </div>
+    {% endwith %}
+  </div>
+  <div class="text-xs mt-4 text-zinc-300 flex items-center gap-2">
+    <div>Built with <a class="underline" href="https://wagtail.org">Wagtail</a></div>
+    <div class="text-zinc-200 font-medium ">|</div>
+    <div>Illustrations from <a class="underline" href="https://freepik.com" target="_blank">Freepik</a></div>
+  </div>
+
+</footer>

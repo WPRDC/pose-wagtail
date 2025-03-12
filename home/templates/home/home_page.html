@@ -1,21 +1,94 @@
 {% extends "base.html" %}
 {% load static %}
-
+{% load wagtailcore_tags wagtailimages_tags %}
 {% block body_class %}template-homepage{% endblock %}
 
-{% block extra_css %}
-
-{% comment %}
-Delete the line below if you're just getting started and want to remove the welcome screen!
-{% endcomment %}
-<link rel="stylesheet" href="{% static 'css/welcome_page.css' %}">
-{% endblock extra_css %}
 
 {% block content %}
+  {% image page.hero_image original as hero_image %}
 
-{% comment %}
-Delete the line below if you're just getting started and want to remove the welcome screen!
-{% endcomment %}
-{% include 'home/welcome_page.html' %}
+  {# Hero #}
+  <div class="border-b-2 bg-bottom " style="background-image: url({{ hero_image.url }});">
+    <div class="bg-linear-to-r from-50% from-indigo-950/95 to-indigo-950/60 w-full backdrop-saturate-0">
+      <div class="container max-w-screen-xl mx-auto px-8 py-16 ">
+
+        <div class="xl:w-9/12">
+          <p class="text-5xl font-black italic leading-[1.15] text-zinc-100">{{ page.hero_text }}</p>
+          <p class="text-xl w-2/3  mt-4 font-medium text-zinc-200 pr-20">{{ page.hero_description }}</p>
+
+          {% if page.hero_cta_link %}
+            <div class="mt-12 mb-6 hover:scale-105 origin-center transition ease-in-out duration-75 w-fit">
+              <a href="{{ page.hero_cta_link }}"
+                 class="text-2xl transition ease-in-out font-bold text-indigo-800 bg-amber-200 rounded-md py-3.5 px-5 shadow-md hover:shadow-lg hover:shadow-white/30 shadow-white/30 ">
+                {% firstof page.hero_cta page.hero_cta_link.title %}
+              </a>
+            </div>
+          {% endif %}
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  {# Community Section #}
+  <div class="w-full border-t-2 py-8">
+    <div class="p-8 container max-w-screen-xl mx-auto flex items-center">
+
+      <div class="w-3/4 pr-8">
+
+        <h2 class="font-bold text-5xl mb-12">{{ page.community_title }}</h2>
+        <div class="prose-lg mb-12">
+          {{ page.community_body|richtext }}
+        </div>
+        <div class="hover:scale-105 origin-center transition ease-in-out duration-75 w-fit ">
+          <a
+              class="text-2xl transition ease-in-out shadow-md hover:shadow-lg font-semibold text-amber-200 border rounded py-2 px-3 bg-indigo-800 rounded-md  hover:shadow-white/30 shadow-white/30 "
+              href="{{ page.community_cta_link }}">{{ page.community_cta }}</a>
+        </div>
+      </div>
+      <div class="w-1/4">
+        {% image page.community_image height-240 %}
+      </div>
+    </div>
+  </div>
+
+  {# Catalog Section #}
+  <div class="w-full border-t-2 py-8 bg-indigo-50">
+    <div class="p-8 container max-w-screen-xl mx-auto">
+
+      <div class=" max-w-screen-lg">
+        <h2 class="font-bold text-5xl mb-12">{{ page.catalog_title }}</h2>
+        <div class="prose-lg mb-12">
+          {{ page.catalog_body|richtext }}
+        </div>
+      </div>
+
+      <div class="flex pl-8 gap-16 mb-12">
+        <div>
+          {% with total=page.catalog_extension_count.extensions %}
+            <span class="font-mono text-8xl font-black text-zinc-900">{{ total }}</span>
+            <span class="text-2xl font-medium">extension{{ total|pluralize }}</span>
+          {% endwith %}
+        </div>
+        <div>
+          {% with total=page.catalog_extension_count.sites %}
+            <span class="font-mono text-8xl font-black text-zinc-900">{{ total }}</span>
+            <span class="text-2xl font-medium">site{{ total|pluralize }}</span>
+          {% endwith %}
+        </div>
+      </div>
+
+      <div class="hover:scale-105 origin-center transition ease-in-out duration-75 w-fit ">
+        <a
+            href="{{ page.catalog_cta_link }}"
+            class="text-2xl transition ease-in-out shadow-md hover:shadow-lg font-semibold text-amber-200 border rounded py-2 px-3 bg-indigo-800 rounded-md  hover:shadow-white/30 shadow-white/30 "
+        >
+          {{ page.catalog_cta }}
+        </a>
+      </div>
+
+    </div>
+  </div>
+
 
 {% endblock content %}
