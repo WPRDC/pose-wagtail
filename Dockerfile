@@ -1,5 +1,5 @@
 # Use an official Python runtime based on Debian 12 "bookworm" as a parent image.
-FROM python:3.12 as build
+FROM python:3.12-slim as build
 ENV PYTHONWRITEBYTECODE=1
 ENV PYTHONBUFFERED=1
 
@@ -22,6 +22,8 @@ COPY . /code/
 
 FROM build as migrate
 COPY entrypoint.sh /code/
+
 RUN ["chmod", "+x", "/code/entrypoint.sh"]
 RUN ["chmod", "+x", "/code/bin/wait-for-it.sh"]
+
 ENTRYPOINT ["bash", "/code/entrypoint.sh"]

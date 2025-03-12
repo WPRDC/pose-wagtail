@@ -5,6 +5,7 @@ echo "Apply database migrations"
 
 COUNTER=0
 
+# wait for db container
 while
   python manage.py migrate --noinput
   M=$?
@@ -16,15 +17,16 @@ do
   sleep 3
 done
 
-python manage.py checkadmin
 
-if [ $? -eq 0 ]; then
-  echo "✅ Admin already present"
+# create superuser if necessary
+python manage.py createsuperuser --noinput
+
+
+# use wsgi in production
+if [ ${ENV} = "production" ]; then
+  gunicorn pose.wsgi:application --bind 0.0.0.0:8000
 else
-  echo "🧑‍💻 Creating superuser"
-  python manage.py createsuperuser --noinput
+  python manage.py runserver 0.0.0.0:8000 --settings=pose.settings.dev
 fi
-
-python manage.py runserver 0.0.0.0:8000 --settings=pose.settings.dev
 
 exec "$@"

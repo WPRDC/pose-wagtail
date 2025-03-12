@@ -5,6 +5,7 @@ certifi==2025.1.31
 charset-normalizer==3.4.1
 defusedxml==0.7.1
 Django==5.1.5
+django_browser_reload==1.18.0
 django-filter==24.3
 django-modelcluster==6.4
 django-permissionedforms==0.1
@@ -14,6 +15,7 @@ django-tailwind==3.8.0
 django-tasks==0.6.1
 django-treebeard==4.7.1
 djangorestframework==3.15.2
+gunicorn==23.0.0
 draftjs-exporter==5.0.0
 et_xmlfile==2.0.0
 filetype==1.2.0
