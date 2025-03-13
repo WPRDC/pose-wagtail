@@ -20,6 +20,8 @@ RUN pip install -r requirements.txt
 
 COPY . /code/
 
+EXPOSE 8000
+
 FROM build as migrate
 COPY entrypoint.sh /code/
 

@@ -14,7 +14,8 @@ services:
       - POSTGRES_PORT=${DB_PORT}
   web:
     build: .
-    command: gunicorn hello_django.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - ./media:/code/media
     ports:
       - ${HOST_DJANGO_PORT}:8000
     env_file:

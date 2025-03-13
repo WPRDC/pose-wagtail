@@ -21,12 +21,12 @@ done
 # create superuser if necessary
 python manage.py createsuperuser --noinput
 
-
 # use wsgi in production
-if [ ${ENVIRONMENT} = "production" ]; then
-  DJANGO_SETTINGS_MODULE=pose.settings.production gunicorn pose.wsgi:application --bind 0.0.0.0:8000
+if [ "${ENVIRONMENT}" = "production" ]; then
+  DJANGO_SETTINGS_MODULE=pose.settings.production gunicorn --config pose/gunicorn_config.py pose.wsgi:application
 else
   python manage.py runserver 0.0.0.0:8000 --settings=pose.settings.dev
 fi
+
 
 exec "$@"

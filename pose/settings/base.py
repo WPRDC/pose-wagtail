@@ -19,9 +19,8 @@ load_dotenv()
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # Application definition
 
@@ -212,4 +211,4 @@ INTERNAL_IPS = [
 # Site-specific settings
 CATALOG_HOST = os.environ.get("CATALOG_HOST", "http://localhost:5000")
 
-CATALOG_API_KEY = os.environ.get("CKAN_API_KEY", "")
+CATALOG_API_KEY = os.environ.get("CATALOG_API_KEY", "")
