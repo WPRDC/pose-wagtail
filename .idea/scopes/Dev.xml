@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Dev" pattern="(file[pose-wagtail]:base//*&amp;&amp;!file[pose-wagtail]:base/migrations//*||file[pose-wagtail]:home//*)&amp;&amp;!file[pose-wagtail]:home/management//*&amp;&amp;!file[pose-wagtail]:home/migrations//*||file[pose-wagtail]:theme//*||file[pose-wagtail]:pose//*" />
+</component>

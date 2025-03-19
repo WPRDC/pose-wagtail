@@ -2,7 +2,7 @@
 {% load static %}
 {% load wagtailcore_tags wagtailimages_tags %}
 {% block body_class %}template-homepage{% endblock %}
-
+{% load widget_tags %}
 
 {% block content %}
   {% image page.hero_image original as hero_image %}
@@ -30,6 +30,69 @@
     </div>
   </div>
 
+  {# Catalog Section #}
+  <section class="w-full border-t-2 py-8 bg-indigo-50">
+    <div class="p-8 container max-w-screen-xl mx-auto">
+
+      <div class=" max-w-screen-lg">
+        <h2 class="font-bold text-5xl mb-12">{{ page.catalog_title }}</h2>
+        <div class="prose-lg mb-12">
+          {{ page.catalog_body|richtext }}
+        </div>
+      </div>
+
+      <div class="w-full">
+        <div>
+          {% with total=page.catalog_extension_count.extensions %}
+            <span class="font-mono text-8xl font-black text-zinc-900">{{ total }}</span>
+            <span class="text-2xl font-medium">extension{{ total|pluralize }}</span>
+          {% endwith %}
+        </div>
+        <p class="mb-4 mt-2 italic text-lg"></p>
+
+      <div>
+        <div>Highlighted Extensions</div>
+        <div class="grid grid-cols-3 gap-4">
+          {% get_highlighted_extensions_widget %}
+        </div>
+      </div>
+
+      </div>
+
+
+      <span class="block mt-8 text-xl italic"> and </span>
+
+
+      <div class="w-full mt-8">
+
+        <div>
+          {% with total=page.catalog_extension_count.sites %}
+            <span class="font-mono text-8xl font-black text-zinc-900">{{ total }}</span>
+            <span class="text-2xl font-medium">site{{ total|pluralize }}</span>
+          {% endwith %}
+        </div>
+
+
+            <div class="w-full py-8">
+        {% get_highlighted_sites_widget %}
+      </div>
+      </div>
+
+      <div class="hover:ring origin-center transition ease-in-out duration-75 w-fit  ">
+        <a
+            href="{{ page.catalog_cta_link }}"
+            class="text-2xl transition ease-in  shadow-md hover:shadow-lg font-semibold text-amber-200 border rounded py-2 px-3 bg-indigo-800 rounded-md  hover:shadow-white/30 shadow-white/30 "
+        >
+          {{ page.catalog_cta }}
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+
+
+
   {# Community Section #}
   <div class="w-full border-t-2 py-8">
     <div class="p-8 container max-w-screen-xl mx-auto flex items-center">
@@ -40,7 +103,7 @@
         <div class="prose-lg mb-12">
           {{ page.community_body|richtext }}
         </div>
-        <div class="hover:scale-105 origin-center transition ease-in-out duration-75 w-fit ">
+        <div class="hover:ring origin-center transition ease-in duration-75 w-fit ">
           <a
               class="text-2xl transition ease-in-out shadow-md hover:shadow-lg font-semibold text-amber-200 border rounded py-2 px-3 bg-indigo-800 rounded-md  hover:shadow-white/30 shadow-white/30 "
               href="{{ page.community_cta_link }}">{{ page.community_cta }}</a>
@@ -49,44 +112,6 @@
       <div class="w-1/4">
         {% image page.community_image height-240 %}
       </div>
-    </div>
-  </div>
-
-  {# Catalog Section #}
-  <div class="w-full border-t-2 py-8 bg-indigo-50">
-    <div class="p-8 container max-w-screen-xl mx-auto">
-
-      <div class=" max-w-screen-lg">
-        <h2 class="font-bold text-5xl mb-12">{{ page.catalog_title }}</h2>
-        <div class="prose-lg mb-12">
-          {{ page.catalog_body|richtext }}
-        </div>
-      </div>
-
-      <div class="flex pl-8 gap-16 mb-12">
-        <div>
-          {% with total=page.catalog_extension_count.extensions %}
-            <span class="font-mono text-8xl font-black text-zinc-900">{{ total }}</span>
-            <span class="text-2xl font-medium">extension{{ total|pluralize }}</span>
-          {% endwith %}
-        </div>
-        <div>
-          {% with total=page.catalog_extension_count.sites %}
-            <span class="font-mono text-8xl font-black text-zinc-900">{{ total }}</span>
-            <span class="text-2xl font-medium">site{{ total|pluralize }}</span>
-          {% endwith %}
-        </div>
-      </div>
-
-      <div class="hover:scale-105 origin-center transition ease-in-out duration-75 w-fit ">
-        <a
-            href="{{ page.catalog_cta_link }}"
-            class="text-2xl transition ease-in-out shadow-md hover:shadow-lg font-semibold text-amber-200 border rounded py-2 px-3 bg-indigo-800 rounded-md  hover:shadow-white/30 shadow-white/30 "
-        >
-          {{ page.catalog_cta }}
-        </a>
-      </div>
-
     </div>
   </div>
 

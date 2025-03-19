@@ -1,0 +1,42 @@
+{% load wagtailcore_tags %}
+{% load static %}
+
+
+{% for widget in widgets %}
+    <a href="{{ widget.catalog_link }}" class="border-2 p-4 bg-white rounded-md flex flex-col justify-between  hover:ring ring-blue">
+      <div>
+        <h1 class="font-bold text-3xl">{{ widget.name }}</h1>
+        <div class="italic">{{ widget.notes }}</div>
+
+        <div class="mt-2 flex flex-col gap-1 text-xs">
+          <div class="mt-1">
+            <div class="flex items-center gap-1 ">
+              <img style="height: 1rem;" src="{% static 'images/history-24.svg' %}" alt="Updated">
+              <span class="">Updated:</span>
+              <span class="font-semibold text-zinc-900">{{ widget.last_update|date }}</span>
+            </div>
+          </div>
+          <div class="flex items-center gap-4">
+            <div class="flex items-center gap-1">
+              <img style="height: 1rem;" src="{% static 'images/star-fill-24.svg' %}" alt="Star">
+              <span class="">Stars:</span>
+              <span class="font-semibold text-zinc-900 ">{{ widget.stars }}</span>
+            </div>
+
+            <div class="flex items-center gap-1 ">
+              <img style="height: 1rem;" src="{% static 'images/repo-forked-24.svg' %}" alt="Forked">
+              <span class="">Forks:</span>
+              <span class="font-semibold text-zinc-900">{{ widget.forks_count }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <ul class="mt-4">
+        {% for tag in widget.tags %}
+          <li class="inline py-0.5 px-1.5 font-medium text-zinc-800 text-xs border border-indigo-300 rounded-xl bg-indigo-100">{{ tag.display_name }}</li>
+        {% endfor %}
+      </ul>
+    </a>
+{% endfor %}

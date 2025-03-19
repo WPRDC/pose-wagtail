@@ -141,3 +141,27 @@ class FooterText(
 
     class Meta(TranslatableMixin.Meta):
         verbose_name_plural = "Footer Text"
+
+
+@register_snippet
+class HighlightedExtension(models.Model):
+    slug = models.CharField(max_length=255, verbose_name="Extension ID")
+
+    panels = [
+        FieldPanel("slug"),
+    ]
+
+    def __str__(self):
+        return self.slug
+
+
+@register_snippet
+class HighlightedSite(models.Model):
+    slug = models.CharField(max_length=255, verbose_name="Site ID")
+
+    panels = [
+        FieldPanel("slug"),
+    ]
+
+    def __str__(self):
+        return self.slug
