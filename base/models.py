@@ -165,3 +165,21 @@ class HighlightedSite(models.Model):
 
     def __str__(self):
         return self.slug
+
+
+@register_snippet
+class HighlightedDiscussion(models.Model):
+    topic_id = models.IntegerField(verbose_name="Topic ID")
+    topic_name = models.CharField(
+        verbose_name="Topic Name",
+        help_text="For internal use only, widget will use data from discourse",
+        max_length=255,
+    )
+
+    panels = [
+        FieldPanel("topic_name"),
+        FieldPanel("topic_id"),
+    ]
+
+    def __str__(self):
+        return f"{self.topic_name} ({self.topic_id})"

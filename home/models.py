@@ -108,30 +108,32 @@ class HomePage(Page):
 
         if cached:
             return cached
+        extensions = 0
+        sites = 0
+        try:
+            # request counts from catalog
+            extensions = requests.get(
+                f"{CATALOG_HOST}/api/3/action/package_search?fq=type:extension&rows=0",
+            ).json()["result"]["count"]
 
-        # request counts from catalog
-        # todo: work out permission issues
-        extensions = requests.get(
-            f"{CATALOG_HOST}/api/3/action/package_search?fq=type:extension&rows=0",
-        ).json()["result"]["count"]
+            sites = requests.get(
+                f"{CATALOG_HOST}/api/3/action/package_search?fq=type:site&rows=0",
+            ).json()["result"]["count"]
 
-        sites = requests.get(
-            f"{CATALOG_HOST}/api/3/action/package_search?fq=type:site&rows=0",
-        ).json()["result"]["count"]
+            cache.set(
+                "catalog_counts",
+                {
+                    "extensions": extensions,
+                    "sites": sites,
+                },
+                CATALOG_CACHE_TTL,
+            )
+        finally:
 
-        cache.set(
-            "catalog_counts",
-            {
+            return {
                 "extensions": extensions,
                 "sites": sites,
-            },
-            CATALOG_CACHE_TTL,
-        )
-
-        return {
-            "extensions": extensions,
-            "sites": sites,
-        }
+            }
 
     # content panels
     content_panels = Page.content_panels + [
