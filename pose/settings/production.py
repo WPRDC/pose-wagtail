@@ -1,12 +1,18 @@
 from .base import *
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     "localhost",
     "pose.tessercat.net",
     "civicdataecosystem.org",
     "www.civicdataecosystem.org",
+    "dev.civicdataecosystem.org",
+]
+
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://dev.civicdataecosystem.org",
 ]
 
 try:

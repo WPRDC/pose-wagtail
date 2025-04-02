@@ -3,3 +3,7 @@ data
 .env.dev
 
 media
+
+*.pyc
+
+/.idea
