@@ -10,11 +10,11 @@
   {# Hero #}
   <div class="border-b-2 bg-bottom " style="background-image: url({{ hero_image.url }});">
     <div class="bg-linear-to-r from-50% from-indigo-950/95 to-indigo-950/60 w-full backdrop-saturate-0">
-      <div class="container max-w-screen-xl mx-auto px-8 py-16 ">
+      <div class="container max-w-screen-lg mx-auto px-8 py-16 ">
 
         <div class="xl:w-9/12">
           <p class="text-5xl font-black italic leading-[1.15] text-zinc-100">{{ page.hero_text }}</p>
-          <p class="text-xl w-2/3  mt-4 font-medium text-zinc-200 pr-20">{{ page.hero_description }}</p>
+          <p class="text-xl w-10/12 mt-4 font-medium text-zinc-200 pr-20">{{ page.hero_description }}</p>
 
           {% if page.hero_cta_link %}
             <div class="mt-12 mb-6 hover:scale-105 origin-center transition ease-in-out duration-75 w-fit">
@@ -32,7 +32,7 @@
 
   {# Catalog Section #}
   <section class="w-full border-t-2 py-8 bg-indigo-50">
-    <div class="p-8 container max-w-screen-xl mx-auto">
+    <div class="p-8 container max-w-screen-lg mx-auto">
 
       <div class=" max-w-screen-lg">
         <h2 class="font-bold text-5xl mb-12">{{ page.catalog_title }}</h2>
@@ -43,13 +43,12 @@
 
       <div class="w-full">
         <h3 class="font-bold text-4xl mb-4">
-            <span>With </span>
           {% with total=page.catalog_extension_count.extensions %}
-            <span class="font-mono text-8xl font-black text-zinc-900">{{ total }}</span>
-            <span class="text-2xl font-medium">extension{{ total|pluralize }}</span>
+            <span>With </span>
+            <span class="font-mono text-6xl font-black text-zinc-900">{{ total }}</span>
+            <span class="">extension{{ total|pluralize }}, including</span>
           {% endwith %}
         </h3>
-        <p class="mb-4 mt-2 italic text-lg">including</p>
 
         <div>
           <div class="grid grid-cols-3 gap-4">
@@ -60,30 +59,24 @@
       </div>
 
 
-      <span class="block mt-8 text-xl italic"> and </span>
-
-
       <div class="w-full mt-8">
-
-        <div>
+        <h3 class="font-bold text-4xl mb-4">
           {% with total=page.catalog_extension_count.sites %}
-            <span class="font-mono text-8xl font-black text-zinc-900">{{ total }}</span>
-            <span class="text-2xl font-medium">site{{ total|pluralize }}</span>
+            <span class="">and</span>
+            <span class="font-mono text-6xl font-black text-zinc-900">{{ total }}</span>
+            <span class="">site{{ total|pluralize }}</span>
           {% endwith %}
-        </div>
-
-        <p class="mb-4 mt-2 italic text-lg">like</p>
+        </h3>
 
         <div class="grid grid-cols-3 gap-4">
           {% get_highlighted_sites_widget %}
         </div>
       </div>
 
-      <div class="hover:ring origin-center transition ease-in-out duration-75 w-fit mt-12  ">
+      <div class="mt-12">
         <a
             href="{{ page.catalog_cta_link }}"
-            class="text-2xl transition ease-in  shadow-md hover:shadow-lg font-semibold text-amber-200 border rounded py-2 px-3 bg-indigo-800 rounded-md  hover:shadow-white/30 shadow-white/30 "
-        >
+            class="focus:outline-2 text-2xl block w-fit transition duration-100 ease-in font-semibold text-amber-200 border rounded py-1.5 px-3 bg-indigo-800 rounded-md hover:ring ring-indigo-500 underline-none">
           {{ page.catalog_cta }}
         </a>
       </div>
@@ -91,12 +84,9 @@
     </div>
   </section>
 
-
-
-
   {# Community Section #}
   <div class="w-full border-t-2 py-8">
-    <div class="p-8 container max-w-screen-xl mx-auto flex items-center">
+    <div class="p-8 container max-w-screen-lg mx-auto flex items-center">
 
       <div class="w-full">
 
@@ -110,13 +100,15 @@
         </div>
 
         <h3 class="font-bold text-4xl mt-8 mb-4">Trending topics</h3>
-        <div class="grid grid-cols-3 gap-4">
+        <div class="grid grid-cols-2 gap-4">
           {% get_top_discussions_widget %}
         </div>
-        <div class="hover:ring origin-center transition ease-in duration-75 w-fit mt-12">
+        <div class="mt-12">
           <a
-              class="text-2xl transition ease-in-out shadow-md hover:shadow-lg font-semibold text-amber-200 border rounded py-2 px-3 bg-indigo-800 rounded-md  hover:shadow-white/30 shadow-white/30 "
-              href="{{ page.community_cta_link }}">{{ page.community_cta }}</a>
+              href="{{ page.community_cta_link }}"
+              class="focus:outline-2 text-2xl block w-fit transition duration-100 ease-in font-semibold text-amber-200 border rounded py-1.5 px-3 bg-indigo-800 rounded-md hover:ring ring-indigo-500 underline-none">
+            {{ page.community_cta }}
+          </a>
         </div>
 
       </div>

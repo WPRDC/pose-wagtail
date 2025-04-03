@@ -96,7 +96,7 @@ def get_highlighted_discussions_widget():
         }
 
 
-@register.inclusion_tag("base/includes/discourse_widgets.html")
+@register.inclusion_tag("base/includes/discourse_widgets_wide.html")
 def get_top_discussions_widget():
     """
     Collects data on the past month's trending topics for use in widgets.
@@ -111,7 +111,7 @@ def get_top_discussions_widget():
     try:
         topics = requests.get(
             f"https://community.civicdataecosystem.org/top.json",
-            params={"period": "monthly", "per_page": 5},
+            params={"period": "yearly", "per_page": 5},
         ).json()["topic_list"]["topics"]
         topics = [
             {**t, "last_updated": datetime.fromisoformat(t["last_posted_at"])}

@@ -35,15 +35,15 @@
       {{ page.body|richtext }}
     </main>
 
-      {# tags #}
+    {# tags #}
     {% with tags=page.tags.all %}
       {% if tags %}
         <nav class="mb-4">
-{#          <h2 class="font-bold mb-1">Tags</h2>#}
           <ul class="flex gap-2">
             {% for tag in tags %}
               <li>
-                <a class="font-semibold font-mono text-xs py-1 px-1.5 border border-zinc-800 text-zinc-800 bg-indigo-200 rounded-md uppercase" href="{% slugurl 'tags' %}?tag={{ tag }}">
+                <a class="font-semibold font-mono text-xs py-1 px-1.5 border border-zinc-800 text-zinc-800 bg-indigo-200 rounded-md uppercase"
+                   href="{% slugurl 'tags' %}?tag={{ tag }}">
                   {{ tag }}
                 </a>
               </li>
