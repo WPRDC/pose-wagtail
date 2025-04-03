@@ -2,7 +2,7 @@
 {% load static %}
 {% load wagtailcore_tags wagtailimages_tags %}
 {% block body_class %}template-homepage{% endblock %}
-
+{% load widget_tags %}
 
 {% block content %}
   {% image page.hero_image original as hero_image %}
@@ -30,30 +30,8 @@
     </div>
   </div>
 
-  {# Community Section #}
-  <div class="w-full border-t-2 py-8">
-    <div class="p-8 container max-w-screen-xl mx-auto flex items-center">
-
-      <div class="w-3/4 pr-8">
-
-        <h2 class="font-bold text-5xl mb-12">{{ page.community_title }}</h2>
-        <div class="prose-lg mb-12">
-          {{ page.community_body|richtext }}
-        </div>
-        <div class="hover:scale-105 origin-center transition ease-in-out duration-75 w-fit ">
-          <a
-              class="text-2xl transition ease-in-out shadow-md hover:shadow-lg font-semibold text-amber-200 border rounded py-2 px-3 bg-indigo-800 rounded-md  hover:shadow-white/30 shadow-white/30 "
-              href="{{ page.community_cta_link }}">{{ page.community_cta }}</a>
-        </div>
-      </div>
-      <div class="w-1/4">
-        {% image page.community_image height-240 %}
-      </div>
-    </div>
-  </div>
-
   {# Catalog Section #}
-  <div class="w-full border-t-2 py-8 bg-indigo-50">
+  <section class="w-full border-t-2 py-8 bg-indigo-50">
     <div class="p-8 container max-w-screen-xl mx-auto">
 
       <div class=" max-w-screen-lg">
@@ -63,30 +41,85 @@
         </div>
       </div>
 
-      <div class="flex pl-8 gap-16 mb-12">
-        <div>
+      <div class="w-full">
+        <h3 class="font-bold text-4xl mb-4">
+            <span>With </span>
           {% with total=page.catalog_extension_count.extensions %}
             <span class="font-mono text-8xl font-black text-zinc-900">{{ total }}</span>
             <span class="text-2xl font-medium">extension{{ total|pluralize }}</span>
           {% endwith %}
+        </h3>
+        <p class="mb-4 mt-2 italic text-lg">including</p>
+
+        <div>
+          <div class="grid grid-cols-3 gap-4">
+            {% get_highlighted_extensions_widget %}
+          </div>
         </div>
+
+      </div>
+
+
+      <span class="block mt-8 text-xl italic"> and </span>
+
+
+      <div class="w-full mt-8">
+
         <div>
           {% with total=page.catalog_extension_count.sites %}
             <span class="font-mono text-8xl font-black text-zinc-900">{{ total }}</span>
             <span class="text-2xl font-medium">site{{ total|pluralize }}</span>
           {% endwith %}
         </div>
+
+        <p class="mb-4 mt-2 italic text-lg">like</p>
+
+        <div class="grid grid-cols-3 gap-4">
+          {% get_highlighted_sites_widget %}
+        </div>
       </div>
 
-      <div class="hover:scale-105 origin-center transition ease-in-out duration-75 w-fit ">
+      <div class="hover:ring origin-center transition ease-in-out duration-75 w-fit mt-12  ">
         <a
             href="{{ page.catalog_cta_link }}"
-            class="text-2xl transition ease-in-out shadow-md hover:shadow-lg font-semibold text-amber-200 border rounded py-2 px-3 bg-indigo-800 rounded-md  hover:shadow-white/30 shadow-white/30 "
+            class="text-2xl transition ease-in  shadow-md hover:shadow-lg font-semibold text-amber-200 border rounded py-2 px-3 bg-indigo-800 rounded-md  hover:shadow-white/30 shadow-white/30 "
         >
           {{ page.catalog_cta }}
         </a>
       </div>
 
+    </div>
+  </section>
+
+
+
+
+  {# Community Section #}
+  <div class="w-full border-t-2 py-8">
+    <div class="p-8 container max-w-screen-xl mx-auto flex items-center">
+
+      <div class="w-full">
+
+        <h2 class="font-bold text-5xl mb-12">{{ page.community_title }}</h2>
+        <div class="prose-lg mb-12">
+          {{ page.community_body|richtext }}
+        </div>
+        <h3 class="font-bold text-4xl mb-4 ">Highlighted topics</h3>
+        <div class="grid grid-cols-3 gap-4">
+          {% get_highlighted_discussions_widget %}
+        </div>
+
+        <h3 class="font-bold text-4xl mt-8 mb-4">Trending topics</h3>
+        <div class="grid grid-cols-3 gap-4">
+          {% get_top_discussions_widget %}
+        </div>
+        <div class="hover:ring origin-center transition ease-in duration-75 w-fit mt-12">
+          <a
+              class="text-2xl transition ease-in-out shadow-md hover:shadow-lg font-semibold text-amber-200 border rounded py-2 px-3 bg-indigo-800 rounded-md  hover:shadow-white/30 shadow-white/30 "
+              href="{{ page.community_cta_link }}">{{ page.community_cta }}</a>
+        </div>
+
+      </div>
     </div>
   </div>
 

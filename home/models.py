@@ -6,8 +6,12 @@ from wagtail.fields import RichTextField
 from wagtail.models import Page
 from wagtail.models import Page, Orderable
 from wagtail.search import index
+from django.core.cache import cache
+from wagtail.snippets.models import register_snippet
 
 from pose.settings.base import CATALOG_HOST, CATALOG_API_KEY
+
+CATALOG_CACHE_TTL = 60 * 10  # 10 minutes
 
 
 class HomePage(Page):
@@ -99,25 +103,37 @@ class HomePage(Page):
     def catalog_extension_count(self):
         """Returns the number of CKAN extensions cataloged."""
 
-        headers = {
-            "Authorization": CATALOG_API_KEY,
-        }
+        # check cache
+        cached = cache.get("catalog_counts")
 
-        # todo: work out permission issues
-        # extensions = requests.get(
-        #     f"{CATALOG_HOST}/api/3/action/package_search?fq=type:extension&rows=0",
-        #     headers=headers,
-        # ).json()
-        #
-        # sites = requests.get(
-        #     f"{CATALOG_HOST}/api/3/action/package_search?fq=type:site&rows=0",
-        #     headers=headers,
-        # ).json()
+        if cached:
+            return cached
+        extensions = 0
+        sites = 0
+        try:
+            # request counts from catalog
+            extensions = requests.get(
+                f"{CATALOG_HOST}/api/3/action/package_search?fq=type:extension&rows=0",
+            ).json()["result"]["count"]
 
-        return {
-            "extensions": 93,
-            "sites": 1,
-        }
+            sites = requests.get(
+                f"{CATALOG_HOST}/api/3/action/package_search?fq=type:site&rows=0",
+            ).json()["result"]["count"]
+
+            cache.set(
+                "catalog_counts",
+                {
+                    "extensions": extensions,
+                    "sites": sites,
+                },
+                CATALOG_CACHE_TTL,
+            )
+        finally:
+
+            return {
+                "extensions": extensions,
+                "sites": sites,
+            }
 
     # content panels
     content_panels = Page.content_panels + [

@@ -1,9 +1,8 @@
 from django.conf import settings
-from django.urls import include, path
 from django.contrib import admin
-
-from wagtail.admin import urls as wagtailadmin_urls
+from django.urls import include, path
 from wagtail import urls as wagtail_urls
+from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.documents import urls as wagtaildocs_urls
 
 urlpatterns = [
@@ -25,6 +24,7 @@ if settings.DEBUG:
     urlpatterns += [
         path("__reload__/", include("django_browser_reload.urls")),
     ]
+
 
 urlpatterns = urlpatterns + [
     # For anything not caught by a more specific rule above, hand over to

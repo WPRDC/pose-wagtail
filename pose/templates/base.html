@@ -40,7 +40,7 @@
 
 <div class="min-h-screen flex flex-col justify-between">
   <div class="">
-  {% include "includes/navbar.html" %}
+    {% include "includes/navbar.html" %}
 
     {% block content %}{% endblock %}
   </div>
@@ -49,6 +49,7 @@
 </div>
 {# Global javascript #}
 <script type="text/javascript" src="{% static 'js/pose.js' %}"></script>
+<script src="https://community.civicdataecosystem.org/javascripts/embed-topics.js"></script>
 
 {% block extra_js %}
   {# Override this in templates to add extra javascript #}
