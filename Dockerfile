@@ -20,6 +20,8 @@ RUN pip install -r requirements.txt
 
 COPY . /code/
 
+RUN python manage.py collectstatic --no-input
+
 EXPOSE 8000
 
 FROM build as migrate

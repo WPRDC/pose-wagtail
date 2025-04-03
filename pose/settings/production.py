@@ -10,7 +10,6 @@ ALLOWED_HOSTS = [
     "dev.civicdataecosystem.org",
 ]
 
-
 CSRF_TRUSTED_ORIGINS = [
     "https://dev.civicdataecosystem.org",
 ]

@@ -219,3 +219,18 @@ INTERNAL_IPS = [
 CATALOG_HOST = os.environ.get("CATALOG_HOST", "http://localhost:5000")
 
 CATALOG_API_KEY = os.environ.get("CATALOG_API_KEY", "")
+
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+        },
+    },
+    "root": {
+        "handlers": ["console"],
+        "level": "DEBUG",
+    },
+}
