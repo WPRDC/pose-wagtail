@@ -59,7 +59,7 @@
                 {# tags #}
                 {% with tags=post.tags.all %}
                   {% if tags %}
-                    <nav class="mt-1">
+                    <nav class="mt-1" aria-label="tags">
                       <ul class="flex gap-2">
                         {% for tag in tags %}
                           <li>

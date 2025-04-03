@@ -4,24 +4,19 @@
 
 {% with nav_settings=settings.base.GlobalSettings %}
   {% get_site_root as site_root %}
+  <div class="flex w-full justify-between items-center px-8 py-4 border-b-2">
+    <a class="flex items-center gap-4" href="{% pageurl site_root %}">
+      {% image nav_settings.ckan_logo height-48 %}
+
+      <h1 class="inline-block text-zinc-700 font-bold text-3xl leading-none pt-1.5">Ecosystem Development </h1>
+    </a>
 
 
-  <header class="px-8 py-4 border-b-2">
-    <div class="flex w-full justify-between items-center">
-      <a class="flex items-center gap-4" href="{% pageurl site_root %}">
-        {% image nav_settings.ckan_logo height-48 %}
+    <nav class="pt-1.5 pr-1">
+      <ul class="flex gap-5">
+        {% main_nav_items %}
+      </ul>
+    </nav>
 
-        <h1 class="inline-block text-zinc-700 font-bold text-3xl leading-none pt-1.5">Ecosystem Development </h1>
-      </a>
-
-
-      <nav class="pt-1.5 pr-1">
-        <ul class="flex gap-5">
-          {% main_nav_items %}
-        </ul>
-      </nav>
-
-    </div>
-
-  </header>
+  </div>
 {% endwith %}

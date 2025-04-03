@@ -39,13 +39,17 @@
 
 
 <div class="min-h-screen flex flex-col justify-between">
-  <div class="">
+  <header>
     {% include "includes/navbar.html" %}
+  </header>
 
+  <main>
     {% block content %}{% endblock %}
-  </div>
+  </main>
 
+  <footer>
   {% include "includes/footer.html" %}
+  </footer>
 </div>
 {# Global javascript #}
 <script type="text/javascript" src="{% static 'js/pose.js' %}"></script>

@@ -13,7 +13,7 @@
       <div class="container max-w-screen-lg mx-auto px-8 py-16 ">
 
         <div class="xl:w-9/12">
-          <p class="text-5xl font-black italic leading-[1.15] text-zinc-100">{{ page.hero_text }}</p>
+          <h1 class="text-5xl font-black italic leading-[1.15] text-zinc-100">{{ page.hero_text }}</h1>
           <p class="text-xl w-10/12 mt-4 font-medium text-zinc-200 pr-20">{{ page.hero_description }}</p>
 
           {% if page.hero_cta_link %}
@@ -34,7 +34,7 @@
   <section class="w-full border-t-2 py-8 bg-indigo-50">
     <div class="p-8 container max-w-screen-lg mx-auto">
 
-      <div class=" max-w-screen-lg">
+      <div class="max-w-screen-lg">
         <h2 class="font-bold text-5xl mb-12">{{ page.catalog_title }}</h2>
         <div class="prose-lg mb-12">
           {{ page.catalog_body|richtext }}
@@ -42,31 +42,29 @@
       </div>
 
       <div class="w-full">
-        <h3 class="font-bold text-4xl mb-4">
+        <p class="font-bold text-4xl mb-4">
           {% with total=page.catalog_extension_count.extensions %}
             <span>With </span>
             <span class="font-mono text-6xl font-black text-zinc-900">{{ total }}</span>
             <span class="">extension{{ total|pluralize }}, including</span>
           {% endwith %}
-        </h3>
+        </p>
 
         <div>
           <div class="grid grid-cols-3 gap-4">
             {% get_highlighted_extensions_widget %}
           </div>
         </div>
-
       </div>
 
-
       <div class="w-full mt-8">
-        <h3 class="font-bold text-4xl mb-4">
+        <p class="font-bold text-4xl mb-4">
           {% with total=page.catalog_extension_count.sites %}
             <span class="">and</span>
             <span class="font-mono text-6xl font-black text-zinc-900">{{ total }}</span>
             <span class="">site{{ total|pluralize }}</span>
           {% endwith %}
-        </h3>
+        </p>
 
         <div class="grid grid-cols-3 gap-4">
           {% get_highlighted_sites_widget %}
@@ -89,18 +87,13 @@
     <div class="p-8 container max-w-screen-lg mx-auto flex items-center">
 
       <div class="w-full">
-
         <h2 class="font-bold text-5xl mb-12">{{ page.community_title }}</h2>
         <div class="prose-lg mb-12">
           {{ page.community_body|richtext }}
         </div>
-        <h3 class="font-bold text-4xl mb-4 ">Highlighted topics</h3>
-        <div class="grid grid-cols-3 gap-4">
-          {% get_highlighted_discussions_widget %}
-        </div>
 
         <h3 class="font-bold text-4xl mt-8 mb-4">Trending topics</h3>
-        <div class="grid grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 gap-4">
           {% get_top_discussions_widget %}
         </div>
         <div class="mt-12">
