@@ -34,50 +34,44 @@
   <section class="w-full border-t-2 py-8 bg-indigo-50">
     <div class="p-8 container max-w-screen-lg mx-auto">
 
-      <div class="max-w-screen-lg">
-        <h2 class="font-bold text-5xl mb-12">{{ page.catalog_title }}</h2>
-        <div class="prose-lg mb-12">
+      <div class="max-w-screen-lg mb-12">
+        <h2 class="font-bold text-5xl mb-4">{{ page.catalog_title }}</h2>
+
+        <div class="font-medium text-2xl mb-6">
+          With data on
+          <span class="font-mono text-2xl font-black text-zinc-900">{{ page.catalog_extension_count.extensions }}</span>
+          extension{{ page.catalog_extension_count.extensions|pluralize }} and
+          <span class="font-mono text-2xl font-black text-zinc-900">{{ page.catalog_extension_count.sites }}</span>
+          site{{ page.catalog_extension_count.sites|pluralize }}.
+        </div>
+
+        <div class="prose-lg mb-6">
           {{ page.catalog_body|richtext }}
         </div>
-      </div>
 
-      <div class="w-full">
-        <p class="font-bold text-4xl mb-4">
-          {% with total=page.catalog_extension_count.extensions %}
-            <span>With </span>
-            <span class="font-mono text-6xl font-black text-zinc-900">{{ total }}</span>
-            <span class="">extension{{ total|pluralize }}, including</span>
-          {% endwith %}
-        </p>
-
-        <div>
-          <div class="grid grid-cols-3 gap-4">
-            {% get_highlighted_extensions_widget %}
-          </div>
+        <div class="">
+          <a
+              href="{{ page.catalog_cta_link }}"
+              class="focus:outline-2 text-2xl block w-fit transition duration-100 ease-in font-semibold text-amber-200 border rounded py-1.5 px-3 bg-indigo-800 rounded-md hover:ring ring-indigo-500 underline-none">
+            {{ page.catalog_cta }}
+          </a>
         </div>
+
       </div>
 
-      <div class="w-full mt-8">
-        <p class="font-bold text-4xl mb-4">
-          {% with total=page.catalog_extension_count.sites %}
-            <span class="">and</span>
-            <span class="font-mono text-6xl font-black text-zinc-900">{{ total }}</span>
-            <span class="">site{{ total|pluralize }}</span>
-          {% endwith %}
-        </p>
+      <section class="w-full">
+        <h3 class="mb-4 text-2xl font-bold">Highlighted extensions</h3>
+        <div class="grid grid-cols-3 gap-4">
+          {% get_highlighted_extensions_widget %}
+        </div>
+      </section>
 
+      <section class="w-full mt-8">
+        <h3 class="mb-4 text-2xl font-bold">Highlighted sites</h3>
         <div class="grid grid-cols-3 gap-4">
           {% get_highlighted_sites_widget %}
         </div>
-      </div>
-
-      <div class="mt-12">
-        <a
-            href="{{ page.catalog_cta_link }}"
-            class="focus:outline-2 text-2xl block w-fit transition duration-100 ease-in font-semibold text-amber-200 border rounded py-1.5 px-3 bg-indigo-800 rounded-md hover:ring ring-indigo-500 underline-none">
-          {{ page.catalog_cta }}
-        </a>
-      </div>
+      </section>
 
     </div>
   </section>
@@ -88,20 +82,21 @@
 
       <div class="w-full">
         <h2 class="font-bold text-5xl mb-12">{{ page.community_title }}</h2>
-        <div class="prose-lg mb-12">
+        <div class="prose-lg mb-6">
           {{ page.community_body|richtext }}
         </div>
 
-        <h3 class="font-bold text-4xl mt-8 mb-4">Trending topics</h3>
-        <div class="grid grid-cols-1 gap-4">
-          {% get_top_discussions_widget %}
-        </div>
-        <div class="mt-12">
+        <div class="mb-12">
           <a
               href="{{ page.community_cta_link }}"
               class="focus:outline-2 text-2xl block w-fit transition duration-100 ease-in font-semibold text-amber-200 border rounded py-1.5 px-3 bg-indigo-800 rounded-md hover:ring ring-indigo-500 underline-none">
             {{ page.community_cta }}
           </a>
+        </div>
+
+        <h3 class="mb-4 text-2xl font-bold">Trending topics</h3>
+        <div class="grid grid-cols-1 gap-4">
+          {% get_top_discussions_widget %}
         </div>
 
       </div>

@@ -28,6 +28,7 @@ psycopg2==2.9.10
 python-dotenv==1.0.1
 pymemcache==4.0.0
 requests==2.32.3
+rich==14.0.0
 soupsieve==2.6
 sqlparse==0.5.3
 telepath==0.3.1

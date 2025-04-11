@@ -3,6 +3,7 @@ from datetime import datetime
 import requests
 from django import template
 from django.core.cache import cache
+from rich import emoji
 
 from base.models import HighlightedExtension, HighlightedSite, HighlightedDiscussion
 from pose.settings.base import CATALOG_HOST
@@ -96,7 +97,7 @@ def get_highlighted_discussions_widget():
         }
 
 
-@register.inclusion_tag("base/includes/discourse_widgets_wide.html")
+@register.inclusion_tag("base/includes/discourse_widgets.html")
 def get_top_discussions_widget():
     """
     Collects data on the past month's trending topics for use in widgets.
@@ -114,7 +115,12 @@ def get_top_discussions_widget():
             params={"period": "yearly", "per_page": 5},
         ).json()["topic_list"]["topics"]
         topics = [
-            {**t, "last_updated": datetime.fromisoformat(t["last_posted_at"])}
+            {
+                **t,
+                "last_updated": datetime.fromisoformat(t["last_posted_at"]),
+                "title": emoji.Emoji.replace(t["fancy_title"] or t["title"]),
+                "excerpt": emoji.Emoji.replace(t["excerpt"]),
+            }
             for t in topics
         ]
         cache.set("top_topics", topics)
