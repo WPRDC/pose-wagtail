@@ -31,21 +31,21 @@
   </div>
 
 
-  <div>
-<div id="map" class="size-42"></div>
-  </div>
-
-  <script>
-    var map = new maplibregl.Map({
-        container: 'map', // container id
-        style: 'https://demotiles.maplibre.org/style.json', // style URL
-        center: [0, 0], // starting position [lng, lat]
-        zoom: 1 // starting zoom
-    });
-</script>
+{#  <div>#}
+{#  <div id="map" class="size-42"></div>#}
+{#  </div>#}
+{##}
+{#  <script>#}
+{#    var map = new maplibregl.Map({#}
+{#        container: 'map', // container id#}
+{#        style: 'https://demotiles.maplibre.org/style.json', // style URL#}
+{#        center: [0, 0], // starting position [lng, lat]#}
+{#        zoom: 1 // starting zoom#}
+{#    });#}
+{#</script>#}
 
   {# Catalog Section #}
-  <section class="w-full border-t-2 py-8 bg-indigo-50">
+  <section class="w-full border-t-2 py-8 bg-indigo-50 h-full">
     <div class="p-8 container max-w-screen-lg mx-auto">
 
       <div class="max-w-screen-lg mb-12">
@@ -75,14 +75,14 @@
 
       <section class="w-full">
         <h3 class="mb-4 text-2xl font-bold">Highlighted extensions</h3>
-        <div class="grid grid-cols-3 gap-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {% get_highlighted_extensions_widget %}
         </div>
       </section>
 
       <section class="w-full mt-8">
         <h3 class="mb-4 text-2xl font-bold">Highlighted sites</h3>
-        <div class="grid grid-cols-3 gap-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {% get_highlighted_sites_widget %}
         </div>
       </section>
