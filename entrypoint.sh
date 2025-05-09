@@ -20,6 +20,7 @@ done
 
 # create superuser if necessary
 python manage.py createsuperuser --noinput
+python manage.py collectstatic --noinput
 
 # use wsgi in production
 if [ "${ENVIRONMENT}" = "production" ]; then
