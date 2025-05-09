@@ -30,6 +30,20 @@
     </div>
   </div>
 
+
+  <div>
+<div id="map" class="size-42"></div>
+  </div>
+
+  <script>
+    var map = new maplibregl.Map({
+        container: 'map', // container id
+        style: 'https://demotiles.maplibre.org/style.json', // style URL
+        center: [0, 0], // starting position [lng, lat]
+        zoom: 1 // starting zoom
+    });
+</script>
+
   {# Catalog Section #}
   <section class="w-full border-t-2 py-8 bg-indigo-50">
     <div class="p-8 container max-w-screen-lg mx-auto">
@@ -75,33 +89,6 @@
 
     </div>
   </section>
-
-  {# Community Section #}
-  <div class="w-full border-t-2 py-8">
-    <div class="p-8 container max-w-screen-lg mx-auto flex items-center">
-
-      <div class="w-full">
-        <h2 class="font-bold text-5xl mb-12">{{ page.community_title }}</h2>
-        <div class="prose-lg mb-6">
-          {{ page.community_body|richtext }}
-        </div>
-
-        <div class="mb-12">
-          <a
-              href="{{ page.community_cta_link }}"
-              class="focus:outline-2 text-2xl block w-fit transition duration-100 ease-in font-semibold text-amber-200 border rounded py-1.5 px-3 bg-indigo-800 rounded-md hover:ring ring-indigo-500 underline-none">
-            {{ page.community_cta }}
-          </a>
-        </div>
-
-        <h3 class="mb-4 text-2xl font-bold">Trending topics</h3>
-        <div class="grid grid-cols-1 gap-4">
-          {% get_top_discussions_widget %}
-        </div>
-
-      </div>
-    </div>
-  </div>
 
 
 {% endblock content %}

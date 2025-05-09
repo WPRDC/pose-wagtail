@@ -32,6 +32,9 @@
   {% block extra_css %}
     {# Override this in templates to add extra stylesheets #}
   {% endblock %}
+
+  <link rel="stylesheet"  href="{% static 'css/maplibre-gl.css' %}">
+
 </head>
 
 <body class="{% block body_class %}{% endblock %}">
@@ -48,12 +51,14 @@
   </main>
 
   <footer>
-  {% include "includes/footer.html" %}
+    {% include "includes/footer.html" %}
   </footer>
 </div>
 {# Global javascript #}
 <script type="text/javascript" src="{% static 'js/pose.js' %}"></script>
-<script src="https://community.civicdataecosystem.org/javascripts/embed-topics.js"></script>
+
+<script type="text/javascript" src="{% static 'js/maplibre-gl.js' %}"></script>
+
 
 {% block extra_js %}
   {# Override this in templates to add extra javascript #}
