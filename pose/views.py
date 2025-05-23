@@ -44,7 +44,7 @@ def site_geojson(request: Request):
                             "name": row["name"],
                             "title": row["title"],
                             "url": row["url"],
-                            "catalog_url": f"{CATALOG_HOST}/site/${row['name']}",
+                            "catalog_url": f"{CATALOG_HOST}/site/{row['name']}",
                             "state": row["state"],
                             "description": row["notes"],
                             "num_datasets": row["num_datasets"],
@@ -54,7 +54,6 @@ def site_geojson(request: Request):
                     }
                 )
             except KeyError:
-                # todo: do something with these?
                 print(row)
 
     return JsonResponse(geojson)
