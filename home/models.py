@@ -7,9 +7,9 @@ from wagtail.models import Page
 from wagtail.models import Page, Orderable
 from wagtail.search import index
 from django.core.cache import cache
-from wagtail.snippets.models import register_snippet
 
-from pose.settings.base import CATALOG_HOST, CATALOG_API_KEY
+from pose import settings
+from pose.settings.base import CATALOG_HOST, MAPTILER_API_KEY
 
 CATALOG_CACHE_TTL = 60 * 10  # 10 minutes
 
@@ -100,6 +100,10 @@ class HomePage(Page):
     # Dynamic
 
     @property
+    def locations(self):
+        return {}
+
+    @property
     def catalog_extension_count(self):
         """Returns the number of CKAN extensions cataloged."""
 
@@ -108,6 +112,7 @@ class HomePage(Page):
 
         if cached:
             return cached
+
         extensions = 0
         sites = 0
         try:
@@ -129,11 +134,14 @@ class HomePage(Page):
                 CATALOG_CACHE_TTL,
             )
         finally:
-
             return {
                 "extensions": extensions,
                 "sites": sites,
             }
+
+    @property
+    def maptiler_key(self):
+        return MAPTILER_API_KEY
 
     # content panels
     content_panels = Page.content_panels + [

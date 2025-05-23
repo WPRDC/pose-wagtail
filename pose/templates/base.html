@@ -33,7 +33,8 @@
     {# Override this in templates to add extra stylesheets #}
   {% endblock %}
 
-  <link rel="stylesheet"  href="{% static 'css/maplibre-gl.css' %}">
+  <link rel="stylesheet" href="{% static 'css/maplibre-gl.css' %}">
+  <script type="text/javascript" src="{% static 'js/maplibre-gl.js' %}"></script>
 
 </head>
 
@@ -57,13 +58,10 @@
 {# Global javascript #}
 <script type="text/javascript" src="{% static 'js/pose.js' %}"></script>
 
-{#<script type="text/javascript" src="{% static 'js/maplibre-gl.js' %}"></script>#}
-
 
 {% block extra_js %}
   {# Override this in templates to add extra javascript #}
 {% endblock %}
-
 
 </body>
 </html>

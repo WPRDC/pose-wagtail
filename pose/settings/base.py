@@ -234,3 +234,6 @@ LOGGING = {
         "level": "DEBUG",
     },
 }
+
+
+MAPTILER_API_KEY = os.environ.get("MAPTILER_API_KEY", "")

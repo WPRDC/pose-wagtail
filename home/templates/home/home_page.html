@@ -30,6 +30,8 @@
     </div>
   </div>
 
+  <div id="map" class="h-[550px] w-full"></div>
+
 
   {# Catalog Section #}
   <section class="w-full border-t-2 py-8 bg-indigo-50 h-full">
@@ -77,5 +79,83 @@
     </div>
   </section>
 
+  <script>
+      var map = new maplibregl.Map({
+          container: 'map', // container id
+          style: 'https://api.maptiler.com/maps/dataviz/style.json?key={{ page.maptiler_key }}', // style URL
+          center: [0, 0], // tarting position [lng, lat]
+          zoom: 1 // starting zoom
+
+      });
+
+      map.on('load', () => {
+          map.addSource('sites', {
+              type: 'geojson',
+              data: '/sites/geojson'
+          })
+          map.addLayer({
+              id: 'sites/points',
+              type: 'circle',
+              source: "sites",
+              paint: {
+                  "circle-stroke-color": "#372AAC",
+                  "circle-color": "#FFDF20",
+                  "circle-stroke-width": 1,
+              }
+          })
+          const hoverPopup = new maplibregl.Popup({
+              closeButton: false,
+              closeOnClick: false
+          });
+          const popup = new maplibregl.Popup({
+              closeButton: false,
+              closeOnClick: true
+          });
+          map.on('mouseenter', 'sites/points', (e) => {
+              map.getCanvas().style.cursor = "pointer"
+              const coordinates = e.features[0].geometry.coordinates.slice();
+              const title = e.features[0].properties.title;
+              // Ensure that if the map is zoomed out such that multiple
+              // copies of the feature are visible, the popup appears
+              // over the copy being pointed to.
+              while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+                  coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+              }
+
+              hoverPopup
+                  .setLngLat(coordinates)
+                  .setHTML(`<div class="font-bold">${title}</div>`)
+                  .addTo(map);
+          })
+          map.on('mouseleave', 'sites/points', (e) => {
+              map.getCanvas().style.cursor = "default"
+              hoverPopup.remove();
+          })
+
+          map.on('click', 'sites/points', (e) => {
+              const coordinates = e.features[0].geometry.coordinates.slice();
+              const title = e.features[0].properties.title;
+              const description = e.features[0].properties.description;
+              const url = e.features[0].properties.url;
+              const catalogURL = e.features[0].properties.catalog_url;
+
+              // Ensure that if the map is zoomed out such that multiple
+              // copies of the feature are visible, the popup appears
+              // over the copy being pointed to.
+              while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+                  coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+              }
+
+              popup
+                  .setLngLat(coordinates)
+                  .setHTML(`<article><h1 class="font-bold">${title}</h1>
+                    <a class="underline block" href="${url}">Site</a>
+                    <a class="underline block" href="${catalogURL}">Catalog Listing</a>
+                    <div class="text-xs mt-1">${description}</div></article>`)
+                  .addTo(map);
+          });
+
+      })
+  </script>
 
 {% endblock content %}
