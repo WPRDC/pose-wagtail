@@ -7,11 +7,11 @@ ALLOWED_HOSTS = [
     "pose.tessercat.net",
     "civicdataecosystem.org",
     "www.civicdataecosystem.org",
-    "dev.civicdataecosystem.org",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://dev.civicdataecosystem.org",
+    "https://civicdataecosystem.org",
+    "https://www.civicdataecosystem.org",
 ]
 
 try:
