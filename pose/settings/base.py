@@ -237,3 +237,5 @@ LOGGING = {
 
 
 MAPTILER_API_KEY = os.environ.get("MAPTILER_API_KEY", "")
+
+USER_AGENT = os.environ.get("USER_AGENT", "")

@@ -1,5 +1,5 @@
 # Use an official Python runtime based on Debian 12 "bookworm" as a parent image.
-FROM python:3.12-slim as build
+FROM python:3.12-slim AS build
 ENV PYTHONWRITEBYTECODE=1
 ENV PYTHONBUFFERED=1
 
@@ -24,7 +24,7 @@ RUN python manage.py collectstatic --no-input
 
 EXPOSE 8000
 
-FROM build as migrate
+FROM build AS migrate
 COPY entrypoint.sh /code/
 
 RUN ["chmod", "+x", "/code/entrypoint.sh"]

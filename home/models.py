@@ -1,15 +1,14 @@
+from functools import lru_cache
+
 import requests
+from django.core.cache import cache
 from django.db import models
-from modelcluster.fields import ParentalKey
-from wagtail.admin.panels import FieldPanel, MultiFieldPanel, InlinePanel
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.fields import RichTextField
 from wagtail.models import Page
 from wagtail.models import Page, Orderable
-from wagtail.search import index
-from django.core.cache import cache
 
-from pose import settings
-from pose.settings.base import CATALOG_HOST, MAPTILER_API_KEY
+from pose.settings.base import CATALOG_HOST, MAPTILER_API_KEY, USER_AGENT
 
 CATALOG_CACHE_TTL = 60 * 10  # 10 minutes
 
@@ -115,29 +114,42 @@ class HomePage(Page):
 
         extensions = 0
         sites = 0
-        try:
-            # request counts from catalog
-            extensions = requests.get(
-                f"{CATALOG_HOST}/api/3/action/package_search?fq=type:extension&rows=0",
-            ).json()["result"]["count"]
 
-            sites = requests.get(
-                f"{CATALOG_HOST}/api/3/action/package_search?fq=type:site&rows=0",
-            ).json()["result"]["count"]
+        headers = {"User-Agent": USER_AGENT}
+        s = requests.session()
 
-            cache.set(
-                "catalog_counts",
-                {
-                    "extensions": extensions,
-                    "sites": sites,
-                },
-                CATALOG_CACHE_TTL,
-            )
-        finally:
-            return {
+        ext_url = f"{CATALOG_HOST}/api/3/action/package_search?fq=type:extension&rows=0"
+        sites_url = f"{CATALOG_HOST}/api/3/action/package_search?fq=type:site&rows=0"
+
+        # request counts from catalog
+        extensions_r = requests.get(
+            ext_url,
+            headers=headers,
+        )
+        if extensions_r.status_code == 200:
+            extensions = extensions_r.json()["result"]["count"]
+
+        sites_r = s.get(
+            sites_url,
+            headers=headers,
+        )
+
+        if sites_r.status_code == 200:
+            sites = sites_r.json()["result"]["count"]
+
+        cache.set(
+            "catalog_counts",
+            {
                 "extensions": extensions,
                 "sites": sites,
-            }
+            },
+            CATALOG_CACHE_TTL,
+        )
+
+        return {
+            "extensions": extensions,
+            "sites": sites,
+        }
 
     @property
     def maptiler_key(self):
