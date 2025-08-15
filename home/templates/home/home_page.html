@@ -31,7 +31,6 @@
   </div>
 
 
-
   {# Catalog Section #}
   <section class="w-full border-t-2 bg-indigo-50 h-full">
 
@@ -41,13 +40,22 @@
 
         <div class="font-medium text-lg md:text-2xl mb-6">
           With data on
-          <span class="font-mono  text-xl md:text-2xl font-black text-zinc-900">{{ page.catalog_extension_count.extensions }}</span>
+          <span
+              class="font-mono  text-xl md:text-2xl font-black text-zinc-900">{{ page.catalog_extension_count.extensions }}</span>
           extension{{ page.catalog_extension_count.extensions|pluralize }} and
-          <span class="font-mono text-xl md:text-2xl font-black text-zinc-900">{{ page.catalog_extension_count.sites }}</span>
+          <span
+              class="font-mono text-xl md:text-2xl font-black text-zinc-900">{{ page.catalog_extension_count.sites }}</span>
           site{{ page.catalog_extension_count.sites|pluralize }} from around the globe.
         </div>
       </div>
 
+      <div id="map" class="h-[550px] w-full mb-4 border-y border-indigo-800">
+        <div class="max-w-screen-lg mx-auto relative">
+          <div class="absolute mx-2 md:mx-6 top-2 left-2 z-50 bg-white/60 px-1 py-0.5 backdrop-blur-md	italic">
+            Click points to see site details
+          </div>
+        </div>
+      </div>
 
       <div class="max-w-screen-lg mx-auto px-4 md:px-8">
         <div class="prose-lg mb-6">
@@ -63,7 +71,7 @@
         </div>
       </div>
 
-      <section class="max-w-screen-lg mx-auto mt-8 px-4 md:px-8" >
+      <section class="max-w-screen-lg mx-auto mt-8 px-4 md:px-8">
         <h3 class="mb-4 text-2xl font-bold">Highlighted extensions</h3>
         <div class="grid grid-cols-1 md:grid-cols-2  gap-4">
           {% get_highlighted_extensions_widget %}
