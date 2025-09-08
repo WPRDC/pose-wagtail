@@ -58,6 +58,7 @@ class BlogPage(Page):
     authors = ParentalManyToManyField("blog.Author", blank=True)
     body = RichTextField()
     date = models.DateField("Post date")
+
     feed_image = models.ForeignKey(
         "wagtailimages.Image",
         null=True,
@@ -91,7 +92,6 @@ class BlogPage(Page):
         FieldPanel("authors"),
         FieldPanel("tags"),
         FieldPanel("intro"),
-        FieldPanel("feed_image"),
         MultiFieldPanel(
             [
                 "tagline",
