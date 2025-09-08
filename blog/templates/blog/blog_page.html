@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
 
 {% block body_class %}template-blogpage{% endblock %}
 
@@ -11,10 +12,15 @@
 {% endblock %}
 
 {% block content %}
-  <article class="py-12 container max-w-screen-lg mx-auto">
+  <article class="py-12 container max-w-screen-lg mx-auto my-0">
     <header>
       <h1 class="text-5xl font-black pb-4 leading-[1.15]">{{ page.title }}</h1>
       {% if page.tagline %}<p class="text-xl font-semibold italic pb-2">{{ page.tagline }}</p>{% endif %}
+      <div>
+        {% if page.feed_image %}
+          {% image page.feed_image max-1000x500 %}
+        {% endif %}
+      </div>
       <div class="flex gap-x-2">
         <time datetime="{{ page.date|date:"Y-m-d" }}" class="meta">{{ page.date }}</time>
         {% with authors=page.authors.all %}
@@ -32,9 +38,7 @@
             {% endif %}
           </div>
         {% endwith %}
-
       </div>
-
     </header>
 
     <main class="max-md:prose prose-xl py-4">
