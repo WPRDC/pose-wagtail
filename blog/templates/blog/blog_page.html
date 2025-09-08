@@ -4,6 +4,12 @@
 
 {% block body_class %}template-blogpage{% endblock %}
 
+{% block meta_tags %}
+  {{ block.super }}
+
+  <meta property="og:type" content="article"/>
+{% endblock %}
+
 {% block content %}
   <article class="py-12 container max-w-screen-lg mx-auto">
     <header>
