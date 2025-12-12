@@ -71,16 +71,16 @@
         </div>
       </div>
 
-      <section class="max-w-screen-lg mx-auto mt-8 px-4 md:px-8">
+      <section class="w-full mx-auto mt-8 px-4 md:px-8">
         <h3 class="mb-4 text-2xl font-bold">Highlighted extensions</h3>
-        <div class="grid grid-cols-1 md:grid-cols-2  gap-4">
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
           {% get_highlighted_extensions_widget %}
         </div>
       </section>
 
-      <section class="max-w-screen-lg mx-auto mt-8 px-4 md:px-8">
+      <section class="w-full mx-auto mt-8 px-4 md:px-8">
         <h3 class="mb-4 text-2xl font-bold">Highlighted sites</h3>
-        <div class="grid grid-cols-1 md:grid-cols-2  gap-4">
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
           {% get_highlighted_sites_widget %}
         </div>
       </section>

@@ -216,7 +216,7 @@ INTERNAL_IPS = [
 ]
 
 # Site-specific settings
-CATALOG_HOST = os.environ.get("CATALOG_HOST", "http://localhost:5000")
+CATALOG_HOST = os.environ.get("CATALOG_HOST", "https://catalog.civicdataecosystem.org")
 
 CATALOG_API_KEY = os.environ.get("CATALOG_API_KEY", "")
 
