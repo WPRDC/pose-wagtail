@@ -6,6 +6,7 @@ from django.core.cache import cache
 from rich import emoji
 
 from base.models import HighlightedExtension, HighlightedSite, HighlightedDiscussion
+from base.utils import get_featured_extension_slugs, get_featured_site_slugs 
 from pose.settings.base import CATALOG_HOST
 
 register = template.Library()
@@ -59,14 +60,64 @@ def _get_widgets(model: type[HighlightedSite | HighlightedExtension]) -> dict:
     }
 
 
+def _get_widgets_from_slugs(slugs: list[str], widget_type: str) -> dict:
+    """
+    Get widget details from a list of slugs.
+    Similar to _get_widgets but takes slugs directly instead of querying DB.
+    """
+    objs = []
+    for slug in slugs:
+        try:
+            objs.append(
+                get_details(
+                    slug,
+                    widget_type,
+                ),
+            )
+        except Exception:
+            pass
+
+    return {
+        "widgets": objs,
+    }
+
+
 @register.inclusion_tag("base/includes/ckan_widgets.html")
 def get_highlighted_extensions_widget():
-    return _get_widgets(HighlightedExtension)
+    """
+    Get highlighted extensions, prioritizing catalog API featured extensions.
+    Falls back to manually curated Wagtail snippets if:
+    - API returns no featured extensions
+    - API call fails
+    """
+    
+    featured_slugs = get_featured_extension_slugs()
+    
+    if featured_slugs:
+        
+        return _get_widgets_from_slugs(featured_slugs, "extension")
+    else:
+        
+        return _get_widgets(HighlightedExtension)
 
 
 @register.inclusion_tag("base/includes/ckan_widgets.html")
 def get_highlighted_sites_widget():
-    return _get_widgets(HighlightedSite)
+    """
+    Get highlighted sites, prioritizing catalog API featured sites.
+    Falls back to manually curated Wagtail snippets if:
+    - API returns no featured sites
+    - API call fails
+    """
+    
+    featured_slugs = get_featured_site_slugs()
+    
+    if featured_slugs:
+        
+        return _get_widgets_from_slugs(featured_slugs, "site")
+    else:
+        
+        return _get_widgets(HighlightedSite)
 
 
 @register.inclusion_tag("base/includes/discourse_widgets.html")
